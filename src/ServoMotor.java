@@ -24,9 +24,6 @@ public class ServoMotor implements Updatable {
         incrementNumber = INCREMENTFLOOR;
         this.direction = direction;
 
-        currentSpeed = 1500;
-        targetSpeed = 1300;
-
         this.servo = new Servo(pin);
         this.servo.start();
     }
