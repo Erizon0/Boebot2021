@@ -1,4 +1,4 @@
-package Hardware;
+package Deprecated.Hardware;
 
 public class Remote_Buttons {
     public static final int BUTTON_POWER = 10010101;
