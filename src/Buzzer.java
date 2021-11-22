@@ -7,8 +7,10 @@ public class Buzzer implements Updatable {
     private int pin;
     private int frequency;
     private Timer tBeep;
+    private Timer tBeep2;
 
     private PWM pwm;
+
 
     public Buzzer(int pin, int frequency) {
         this.pin = pin;
@@ -24,15 +26,14 @@ public class Buzzer implements Updatable {
 
     public void beep(int frequency, int interval){
         this.tBeep = new Timer(interval);
+        this.tBeep2 = new Timer(interval);
         this.pwm.update(frequency);
         this.pwm.start();
-        //TODO geen while true
-        while(true){
-            if (this.tBeep.timeout()) {
-                this.pwm.stop();
-            } else {
-                this.pwm.start();
-            }
+        if (this.tBeep.timeout()) {
+            this.pwm.stop();
+        }
+        if (this.tBeep2.timeout()){
+            this.pwm.start();
         }
     }
 
