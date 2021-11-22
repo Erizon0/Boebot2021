@@ -1,5 +1,7 @@
 import TI.BoeBot;
 
+import java.awt.*;
+
 public class Led implements Updatable {
 
     private int pin;
@@ -10,7 +12,8 @@ public class Led implements Updatable {
 
     public void blink() {
         //Add LED blink code
-        BoeBot.rgbSet(this.pin, 255, 255, 255);
+//        BoeBot.rgbSet(this.pin, 255, 255, 255);
+        BoeBot.rgbSet(this.pin, Color.white);
         BoeBot.rgbShow();
     }
 
