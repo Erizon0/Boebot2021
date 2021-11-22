@@ -1,3 +1,4 @@
+import TI.BoeBot;
 import TI.PWM;
 import TI.Timer;
 
@@ -13,6 +14,7 @@ public class Buzzer implements Updatable {
         this.pin = pin;
         this.frequency = frequency;
         this.pwm = new PWM(this.pin, this.frequency);
+       //volgens mij moet je hier nog "BoeBot.freqOut();" gebruiken
     }
 
     public void continuousBeep (int frequency) {
