@@ -26,6 +26,7 @@ public class Buzzer implements Updatable {
         this.tBeep = new Timer(interval);
         this.pwm.update(frequency);
         this.pwm.start();
+        //TODO geen while true
         while(true){
             if (this.tBeep.timeout()) {
                 this.pwm.stop();
