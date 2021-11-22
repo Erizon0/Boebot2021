@@ -5,18 +5,20 @@ public class Button implements Updatable {
     private int pin;
     private boolean currentState;
 
-    public Button(int pin, boolean currentState) {
+    public Button(int pin) {
         this.pin = pin;
-        this.currentState = currentState;
+        this.currentState = false;
     }
 
     public boolean isPressed() {
-        return currentState;
+        return this.currentState;
     }
 
     @Override
     public void Update() {
-        currentState = BoeBot.digitalRead(this.pin);
+        if(!BoeBot.digitalRead(this.pin)){
+            this.currentState = !this.currentState;
+        }
     }
 
 }
