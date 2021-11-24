@@ -6,7 +6,7 @@ public class Whisker implements Updatable {
 
     private int pin;
     private boolean currentState;
-    private Timer timer;
+    private Timer timer = new Timer(200);
 
     public Whisker(int pin) {
         this.pin = pin;
@@ -26,7 +26,8 @@ public class Whisker implements Updatable {
 
     @Override
     public void Update() {
-        if(isPressed()){
+        if(isPressed()&& timer.timeout()){
+            timer.mark();
             System.out.println("whisker on pin: "+ this.pin+" is pressed");
         }
 

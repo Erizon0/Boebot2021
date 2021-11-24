@@ -10,7 +10,7 @@ public class DriveControl implements Updatable {
     private Whisker leftWhisker;
     private Whisker rightWhisker;
 
-    private Timer turnTimer = new Timer(500);
+    private Timer turnTimer = new Timer(10000);
 
     private Button button = new Button(0);
 
@@ -25,45 +25,57 @@ public class DriveControl implements Updatable {
 
     @Override
     public void Update() {
-        if(button.isPressed()){
+        if (button.isPressed()) {
             leftServoMotor.stop();
             rightServoMotor.stop();
 
             return;
         }
-        if(leftWhisker.isPressed()||rightWhisker.isPressed()){
-            leftServoMotor.goToSpeed(100);
-            rightServoMotor.goToSpeed(100);
+
+        if (!button.isPressed()) {
+
+
+            if (leftWhisker.isPressed() || rightWhisker.isPressed()) {
+
+                leftServoMotor.goToSpeed(-100);
+                rightServoMotor.goToSpeed(-100);
+                turnTimer.mark();
+
+            }
+            if(turnTimer.timeout()){
+                leftServoMotor.goToSpeed(100);
+                rightServoMotor.goToSpeed(100);
+            }
+            leftServoMotor.Update();
+            rightServoMotor.Update();
+
+
+//        else {
+//            if (leftWhisker.isPressed() || rightWhisker.isPressed()) {
+//                if (leftWhisker.isPressed() && !turnTimer.timeout()) {
+//                    turnTimer.mark();
+//                    leftServoMotor.goToSpeed(-100);
+//                    rightServoMotor.goToSpeed(100);
+//                } else if (turnTimer.timeout()) {
+//                    leftServoMotor.goToSpeed(100);
+//                    rightServoMotor.goToSpeed(100);
+//                }
+//
+//                if (rightWhisker.isPressed()) {
+//                    turnTimer.mark();
+//                    leftServoMotor.goToSpeed(100);
+//                    rightServoMotor.goToSpeed(-100);
+//                } else if (turnTimer.timeout()){
+//                    leftServoMotor.goToSpeed(100);
+//                    rightServoMotor.goToSpeed(100);
+//                }
         }
 
 
 
-////        else {
-////            if (leftWhisker.isPressed() && rightWhisker.isPressed()) {
-////                if (leftWhisker.isPressed() && !turnTimer.timeout()) {
-////                    turnTimer.mark();
-////                    leftServoMotor.goToSpeed(-100);
-////                    rightServoMotor.goToSpeed(100);
-////                } else if (turnTimer.timeout()) {
-////                    leftServoMotor.goToSpeed(100);
-////                    rightServoMotor.goToSpeed(100);
-////                }
-////
-////                if (rightWhisker.isPressed()) {
-////                    turnTimer.mark();
-////                    leftServoMotor.goToSpeed(100);
-////                    rightServoMotor.goToSpeed(-100);
-////                } else if (turnTimer.timeout()){
-////                    leftServoMotor.goToSpeed(100);
-////                    rightServoMotor.goToSpeed(100);
-////                }
-////            }
-//
-//        }
-        leftServoMotor.Update();
-        rightServoMotor.Update();
         //leftWhisker.Update();
         //rightWhisker.Update();
     }
+    }
 
-}
+
