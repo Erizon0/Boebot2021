@@ -1,4 +1,5 @@
 import TI.Servo;
+import TI.Timer;
 
 public class ServoMotor implements Updatable {
 
@@ -17,6 +18,8 @@ public class ServoMotor implements Updatable {
     private int direction; //Is either 1 or -1
     private Servo servo;
 
+    private Timer timer = new Timer(100);
+
     private double incrementNumber;
 
 
@@ -30,12 +33,13 @@ public class ServoMotor implements Updatable {
 
     public void goToSpeed(int speed) {
         incrementNumber = INCREMENTFLOOR;
-        targetSpeed = speed;
+        targetSpeed = speed + 1500;
     }
 
     public void stop() {
         incrementNumber = INCREMENTFLOOR;
         targetSpeed = 1500;
+        servo.update(1500);
     }
 
     //TODO: This method of ramping up could be a bit better (the way this works with incrementNumber), but I can't think of a better way right now.
@@ -43,9 +47,13 @@ public class ServoMotor implements Updatable {
     public void Update() {
 
         currentSpeed = servo.getPulseWidth();
+        System.out.println(currentSpeed);
+        if(currentSpeed > 1600 || currentSpeed < 1400){
+            return;
+        }
 
-        if (targetSpeed != currentSpeed) {
-
+        if (targetSpeed != currentSpeed && timer.timeout()) {
+            timer.mark();
             if (incrementNumber < INCREMENTCEIL) {
                 //Print out the increment difference
                 //System.out.println(incrementNumber * INCREMENTPERCENT - incrementNumber);

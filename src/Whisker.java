@@ -1,4 +1,5 @@
 import TI.BoeBot;
+import TI.PinMode;
 import TI.Timer;
 
 public class Whisker implements Updatable {
@@ -9,13 +10,19 @@ public class Whisker implements Updatable {
 
     public Whisker(int pin) {
         this.pin = pin;
+        BoeBot.setMode(pin, PinMode.Input);
 
     }
 
     public boolean isPressed() {
-        this.currentState = BoeBot.digitalRead(this.pin);
-        return this.currentState;
-    }
+        this.currentState = !BoeBot.digitalRead(this.pin);
+        System.out.println("pin: "+this.pin+ this.currentState);
+        return !BoeBot.digitalRead(this.pin);
+
+        }
+
+
+
 
     @Override
     public void Update() {
