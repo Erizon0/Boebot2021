@@ -62,7 +62,7 @@ public class ServoMotor implements Updatable {
 
             int difference = targetSpeed - currentSpeed;
             double incrementSpeed =  difference * incrementNumber;
-            int newSpeed = currentSpeed + this.direction * (int)Math.ceil(incrementSpeed);
+            int newSpeed = this.direction * (currentSpeed + (int)Math.ceil(incrementSpeed));
             this.currentSpeed = newSpeed;
             servo.update(newSpeed);
             //System.out.println("Updated speed to: " + newSpeed);
