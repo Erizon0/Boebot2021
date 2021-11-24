@@ -6,8 +6,8 @@ public class Buzzer implements Updatable {
 
     private int pin;
     private int frequency;
-    private Timer tBeep;
-    private Timer tBeep2;
+    private boolean state;
+    private Timer tBeep;;
 
     private PWM pwm;
 
@@ -19,22 +19,17 @@ public class Buzzer implements Updatable {
        //volgens mij moet je hier nog "BoeBot.freqOut();" gebruiken
     }
 
-    public void continuousBeep (int frequency) {
-        this.pwm.update(frequency);
+    public void startContinuousBeep () { ;
         this.pwm.start();
     }
 
-    public void beep(int frequency, int interval){
+    public void startBeeping(int interval){
         this.tBeep = new Timer(interval);
-        this.tBeep2 = new Timer(interval);
-        this.pwm.update(frequency);
         this.pwm.start();
-        if (this.tBeep.timeout()) {
-            this.pwm.stop();
-        }
-        if (this.tBeep2.timeout()){
-            this.pwm.start();
-        }
+    }
+
+    public void toggle(){
+        this.state =! this.state;
     }
 
     //May be a handy method, but it depends how we code beep()
@@ -45,7 +40,12 @@ public class Buzzer implements Updatable {
     //Don't know what to do with this yet
     @Override
     public void Update() {
-
+        if(this.tBeep == null)
+            return;
+        if (this.tBeep.timeout()){
+            toggle();
+            this.tBeep.mark();
+        }
     }
 
 }
