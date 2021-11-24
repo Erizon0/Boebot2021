@@ -42,7 +42,7 @@ public class ServoMotor implements Updatable {
         servo.update(1500);
     }
 
-    //TODO: This method of ramping up could be a bit better (the way this works with incrementNumber), but I can't think of a better way right now.
+    //TODO: This method of ramping up could be a lot better (the way this works with incrementNumber), but I can't think of a better way right now.
     @Override
     public void Update() {
 
@@ -62,8 +62,8 @@ public class ServoMotor implements Updatable {
 
             int difference = targetSpeed - currentSpeed;
             double incrementSpeed =  difference * incrementNumber;
-            int newSpeed = currentSpeed + (int)Math.ceil(direction * incrementSpeed);
-            this.currentSpeed = newSpeed;
+            int newSpeed = currentSpeed + (int)Math.ceil(incrementSpeed);
+            this.currentSpeed = this.direction * newSpeed;
             servo.update(newSpeed);
             //System.out.println("Updated speed to: " + newSpeed);
         }

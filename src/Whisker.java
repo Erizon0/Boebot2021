@@ -16,19 +16,15 @@ public class Whisker implements Updatable {
 
     public boolean isPressed() {
         this.currentState = !BoeBot.digitalRead(this.pin);
-        System.out.println("pin: "+this.pin+ this.currentState);
+        //System.out.println("pin: " + this.pin + this.currentState);
         return !BoeBot.digitalRead(this.pin);
-
-        }
-
-
-
+    }
 
     @Override
     public void Update() {
         if(isPressed()&& timer.timeout()){
             timer.mark();
-            System.out.println("whisker on pin: "+ this.pin+" is pressed");
+            //System.out.println("whisker on pin: " + this.pin + " is pressed");
         }
 
     }

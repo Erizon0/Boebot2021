@@ -21,6 +21,7 @@ public class Button implements Updatable {
         }
         return this.currentState;
     }
+
     public boolean getstate(){
         System.out.println(this.currentState);
         return this.currentState;
