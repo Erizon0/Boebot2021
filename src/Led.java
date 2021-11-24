@@ -35,16 +35,29 @@ public class Led implements Updatable {
 
     public void toggle(){
         this.state =! this.state;
-
+        if (this.state = true)
+            turnOn();
+        if (this.state = false)
+            turnOff();
     }
 
-    public void ledOn(){
+    public void turnOn(){
+        BoeBot.rgbShow();
+    }
+
+    public void turnOff(){
+        BoeBot.rgbSet(this.pin, 0,0,0);
         BoeBot.rgbShow();
     }
 
     @Override
     public void Update() {
-
+        if(this.timer1 == null)
+            return;
+        if (this.timer1.timeout()){
+            toggle();
+            this.timer1.mark();
+        }
     }
 
 }
