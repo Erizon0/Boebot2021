@@ -25,10 +25,10 @@ public class DriveControl implements Updatable {
     Buzzer buzzer = new Buzzer(10, 30, 250);
 
     //TODO: Don't know which pin is which led
-    Led rightLed = new Led(0, Color.white);
-    Led leftLed = new Led(1, Color.white);
+    Led rightLed = new Led(0, Color.red);
+    Led leftLed = new Led(5, Color.white);
     Led backLed = new Led(2, Color.white);
-    Led backLed1 = new Led(3, Color.white);
+    Led backLed1 = new Led(3, Color.red);
 
     public DriveControl(ServoMotor leftServoMotor, ServoMotor rightServoMotor, Whisker leftWhisker, Whisker rightWhisker) {
         this.leftServoMotor = leftServoMotor;
@@ -49,6 +49,8 @@ public class DriveControl implements Updatable {
             buttonTimer.mark();
             leftServoMotor.stop();
             rightServoMotor.stop();
+            leftServoMotor.Update();
+            rightServoMotor.Update();
             return;
         } else {
             if (leftWhisker.isPressed() || backUpLeft) {
