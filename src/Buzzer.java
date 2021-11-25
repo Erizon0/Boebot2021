@@ -6,7 +6,7 @@ public class Buzzer implements Updatable {
 
     private int pin;
     private int frequency;
-    private boolean state;
+    private int state;
     private Timer tBeep;;
 
     private PWM pwm;
@@ -27,21 +27,24 @@ public class Buzzer implements Updatable {
 
     public void startBeep () {
         this.pwm.start();
-        this.state = true;
+        this.state = 1;
     }
 
     public void stopBeep() {
         this.pwm.stop();
-        this.state = false;
+        this.state = 0;
     }
 
     //TODO: I presume this works, but check please
     public void toggle(){
-        this.state =! this.state;
-        if(this.state = true)
-            startBeep();
-        if(this.state = false)
-            stopBeep();
+        switch (this.state){
+            case 0:
+                startBeep();
+                break;
+            case 1:
+                stopBeep();
+                break;
+        }
     }
 
     @Override

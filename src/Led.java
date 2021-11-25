@@ -9,7 +9,7 @@ public class Led implements Updatable {
     private Color color;
     private Timer timer1;
 
-    private boolean state;
+    private int state = 0;
 
     //TODO: Check if this works
     public Led(int pin, Color color) {
@@ -34,21 +34,27 @@ public class Led implements Updatable {
     }
 
     public void toggle(){
-        this.state =! this.state;
-        if (this.state = true)
-            turnOn();
-        if (this.state = false)
-            turnOff();
+        switch (this.state){
+            case 0:
+                turnOn();
+                break;
+            case 1:
+                turnOff();
+                break;
+        }
     }
 
     public void turnOn(){
         BoeBot.rgbSet(this.pin,this.color);
         BoeBot.rgbShow();
+        this.state = 1;
     }
 
     public void turnOff(){
-        BoeBot.rgbSet(this.pin, 0,0,0);
+        BoeBot.rgbSet(this.pin, Color.BLACK);
         BoeBot.rgbShow();
+        this.state = 0;
+
     }
 
     @Override
@@ -57,6 +63,7 @@ public class Led implements Updatable {
             return;
         if (this.timer1.timeout()){
             toggle();
+            System.out.println("led: " + this.pin + " is now " + this.state + " with color " + this.color);
             this.timer1.mark();
         }
     }
