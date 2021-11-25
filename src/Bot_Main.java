@@ -3,6 +3,7 @@ import javafx.beans.binding.BooleanExpression;
 
 public class Bot_Main {
 
+    //We need to have a place to initialize all hardware
     public static void main(String[] args) {
 
         ServoMotor leftServoMotor = new ServoMotor(13, -1);

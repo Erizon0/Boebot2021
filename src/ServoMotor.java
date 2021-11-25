@@ -6,7 +6,7 @@ public class ServoMotor implements Updatable {
     private int targetGear;
     private int currentGear;
 
-    //TODO: There is a better way to do the directions
+    //TODO: There is a better way to do the directions, but good enough for now
     private int direction; //Is either 1 or -1
     private Servo servo;
 

@@ -42,6 +42,7 @@ public class DriveControl implements Updatable {
 
     }
 
+    //Yes we know this is bad code, yes we will fix it later, for now it should work. With an emphasis on should.
     @Override
     public void Update() {
         if (button.isPressed()) {
