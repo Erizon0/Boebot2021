@@ -42,14 +42,13 @@ public class Led implements Updatable {
     }
 
     public void turnOn(){
+        BoeBot.rgbSet(this.pin,this.color);
         BoeBot.rgbShow();
-        this.state = true;
     }
 
     public void turnOff(){
         BoeBot.rgbSet(this.pin, 0,0,0);
         BoeBot.rgbShow();
-        this.state = false;
     }
 
     @Override

@@ -27,10 +27,12 @@ public class Buzzer implements Updatable {
 
     public void startBeep () {
         this.pwm.start();
+        this.state = true;
     }
 
     public void stopBeep() {
         this.pwm.stop();
+        this.state = false;
     }
 
     //TODO: I presume this works, but check please

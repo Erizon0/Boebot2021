@@ -22,7 +22,7 @@ public class DriveControl implements Updatable {
     private Button button = new Button(0);
 
     //TODO: Don't know if buzzer works
-    Buzzer buzzer = new Buzzer(10, 150, 500);
+    Buzzer buzzer = new Buzzer(10, 0, 500);
 
     //TODO: Don't know which pin is which led
     Led rightLed = new Led(0, Color.red, 500);
