@@ -10,7 +10,7 @@ public class ServoMotor implements Updatable {
     private int direction; //Is either 1 or -1
     private Servo servo;
 
-    private Timer timer = new Timer(100);
+    private Timer timer = new Timer(200);
 
     public ServoMotor(int pin, int direction) {
         this.direction = direction;

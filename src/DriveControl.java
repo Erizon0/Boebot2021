@@ -16,10 +16,12 @@ public class DriveControl implements Updatable {
     private boolean backUpRight = false;
 
     private Timer turnTimer = new Timer(500);
-    private Timer backUpTimer = new Timer(500);
+    private Timer stopTimer = new Timer(1000);
+    private Timer backUpTimer = new Timer(2000);
     private Timer buttonTimer = new Timer(5000);
 
     private Button button = new Button(0);
+    private int state = -1;
 
     //TODO: Don't know if buzzer works
     Buzzer buzzer = new Buzzer(10, 0, 500);
@@ -42,85 +44,176 @@ public class DriveControl implements Updatable {
 
     }
 
+    public void backward (){
+        this.rightServoMotor.goToSpeed(-1);
+        this.leftServoMotor.goToSpeed(-1);
+    }
+
+    public void stop(){
+        this.rightServoMotor.stop();
+        this.leftServoMotor.stop();
+
+    }
+
     //Yes we know this is bad code, yes we will fix it later, for now it should work. With an emphasis on should.
     @Override
     public void Update() {
-        if (button.isPressed()) {
-            buttonTimer.mark();
-            leftServoMotor.stop();
-            rightServoMotor.stop();
-            leftServoMotor.Update();
-            rightServoMotor.Update();
-            rightLed.turnOn();
-            leftLed.turnOn();
-            backLed.turnOn();
-            backLed1.turnOn();
-            return;
-        } else {
-            if (leftWhisker.isPressed() || backUpLeft) {
+        switch (this.state) {
+            default:
+                buttonTimer.mark();
+                leftServoMotor.stop();
+                rightServoMotor.stop();
+                rightLed.turnOn();
+                leftLed.turnOn();
+                backLed.turnOn();
+                backLed1.turnOn();
+                System.out.println("IK MAG NIET RIJDEN");
+//                System.out.println(this.state);
+                if (button.isPressed())
+                    this.state = 0;
+                break;
 
-                if (!backUpLeft) {
-                    leftServoMotor.goToSpeed(-2);
-                    rightServoMotor.goToSpeed(-2);
-                    backLed.Update();
-                    backLed1.Update();
-                    buzzer.Update();
-                    backUpLeft = true;
-                    backUpTimer.mark();
-                } else {
-
-                    if (backUpTimer.timeout()) {
-                        leftServoMotor.goToSpeed(2);
-                        rightServoMotor.goToSpeed(-2);
-                        backLed.Update();
-                        backLed1.Update();
-                        buzzer.Update();
-                        leftLed.Update();
-                        turnTimer.mark();
-                    }
-                    if (turnTimer.timeout()) {
-                        leftServoMotor.goToSpeed(4);
-                        rightServoMotor.goToSpeed(4);
-                        leftLed.Update();
-                        backUpLeft = false;
-                    }
-
+            case 0:
+//                System.out.println(this.state);
+                leftServoMotor.goToSpeed(5);
+                rightServoMotor.goToSpeed(5);
+                if (rightWhisker.isPressed()) {
+                    this.backUpRight = true;
+                    this.state = 1;
                 }
-
-            } else if (rightWhisker.isPressed() || backUpRight) {
-
-                if (!backUpRight) {
-                    leftServoMotor.goToSpeed(-2);
-                    rightServoMotor.goToSpeed(-2);
-                    backLed.Update();
-                    backLed1.Update();
-                    buzzer.Update();
-                    backUpRight = true;
-                    backUpTimer.mark();
-                } else {
-                    if (backUpTimer.timeout()) {
-                        leftServoMotor.goToSpeed(-2);
-                        rightServoMotor.goToSpeed(2);
-                        backLed.Update();
-                        backLed1.Update();
-                        buzzer.Update();
-                        rightLed.Update();
-                        turnTimer.mark();
-                    }
-                    if (turnTimer.timeout()) {
-                        leftServoMotor.goToSpeed(4);
-                        rightServoMotor.goToSpeed(4);
-                        rightLed.Update();
-                        backUpRight = false;
-                    }
+                if (leftWhisker.isPressed()) {
+                    this.backUpLeft = true;
+                    this.state = 1;
                 }
-            }
+//                leftServoMotor.Update();
+//                rightServoMotor.Update();
+                break;
+
+            case 1:
+                backward();
+                if (backUpTimer.timeout())
+                    this.state = 2;
+                    backUpTimer.mark();
+                break;
+
+            case 2:
+                stop();
+                if (stopTimer.timeout()) {
+                    if (this.backUpRight)
+                        this.state = 3;
+                    if (this.backUpLeft)
+                        this.state = 4;
+                    this.state = 0;
+                }
+                stopTimer.mark();
+                break;
+
+
+            case 3:
+                rightServoMotor.goToSpeed(2);
+                leftServoMotor.goToSpeed(-2);
+                this.backUpRight = false;
+                if (turnTimer.timeout()) {
+                    this.state = 2;
+                    turnTimer.mark();
+                }
+                break;
+
+
+            case 4:
+                rightServoMotor.goToSpeed(-2);
+                leftServoMotor.goToSpeed(2);
+                this.backUpLeft = false;
+                if (turnTimer.timeout()) {
+                    this.state = 2;
+                    turnTimer.mark();
+                }
+                break;
         }
-
+        System.out.println(this.state);
         leftServoMotor.Update();
         rightServoMotor.Update();
 
+
     }
 }
+
+// THIS SHIT BROKE
+
+//        if (button.isPressed()) {
+//                buttonTimer.mark();
+//                leftServoMotor.stop();
+//                rightServoMotor.stop();
+//                leftServoMotor.Update();
+//                rightServoMotor.Update();
+//                rightLed.turnOn();
+//                leftLed.turnOn();
+//                backLed.turnOn();
+//                backLed1.turnOn();
+//                System.out.println("IK MAG NIET RIJDEN");
+//                return;
+//                } else {
+//                if (leftWhisker.isPressed() || backUpLeft) {
+//
+//                if (!backUpLeft) {
+//                leftServoMotor.goToSpeed(-2);
+//                rightServoMotor.goToSpeed(-2);
+//                backLed.Update();
+//                backLed1.Update();
+//                buzzer.Update();
+//                backUpLeft = true;
+//                backUpTimer.mark();
+//                } else {
+//
+//                if (backUpTimer.timeout()) {
+//                leftServoMotor.goToSpeed(2);
+//                rightServoMotor.goToSpeed(-2);
+//                backLed.Update();
+//                backLed1.Update();
+//                buzzer.Update();
+//                leftLed.Update();
+//                turnTimer.mark();
+//                }
+//                if (turnTimer.timeout()) {
+//                leftServoMotor.goToSpeed(4);
+//                rightServoMotor.goToSpeed(4);
+//                leftLed.Update();
+//                backUpLeft = false;
+//                }
+//
+//                }
+//
+//                } else if (rightWhisker.isPressed() || backUpRight) {
+//
+//                if (!backUpRight) {
+//                leftServoMotor.goToSpeed(-2);
+//                rightServoMotor.goToSpeed(-2);
+//                backLed.Update();
+//                backLed1.Update();
+//                buzzer.Update();
+//                backUpRight = true;
+//                backUpTimer.mark();
+//                } else {
+//                if (backUpTimer.timeout()) {
+//                leftServoMotor.goToSpeed(-2);
+//                rightServoMotor.goToSpeed(2);
+//                backLed.Update();
+//                backLed1.Update();
+//                buzzer.Update();
+//                rightLed.Update();
+//                turnTimer.mark();
+//                }
+//                if (turnTimer.timeout()) {
+//                leftServoMotor.goToSpeed(4);
+//                rightServoMotor.goToSpeed(4);
+//                rightLed.Update();
+//                backUpRight = false;
+//                }
+//                }
+//                }
+//                }
+//
+//                leftServoMotor.Update();
+//                rightServoMotor.Update();
 
 
