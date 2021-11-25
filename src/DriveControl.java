@@ -58,9 +58,9 @@ public class DriveControl implements Updatable {
                 if (!backUpLeft) {
                     leftServoMotor.goToSpeed(-2);
                     rightServoMotor.goToSpeed(-2);
-                    backLed.toggle();
-                    backLed1.toggle();
-                    buzzer.toggle();
+                    backLed.Update();
+                    backLed1.Update();
+                    buzzer.Update();
                     backUpLeft = true;
                     backUpTimer.mark();
                 } else {
@@ -68,16 +68,16 @@ public class DriveControl implements Updatable {
                     if (backUpTimer.timeout()) {
                         leftServoMotor.goToSpeed(2);
                         rightServoMotor.goToSpeed(-2);
-                        backLed.toggle();
-                        backLed1.toggle();
-                        buzzer.toggle();
-                        leftLed.toggle();
+                        backLed.Update();
+                        backLed1.Update();
+                        buzzer.Update();
+                        leftLed.Update();
                         turnTimer.mark();
                     }
                     if (turnTimer.timeout()) {
                         leftServoMotor.goToSpeed(4);
                         rightServoMotor.goToSpeed(4);
-                        leftLed.toggle();
+                        leftLed.Update();
                         backUpLeft = false;
                     }
 
@@ -88,25 +88,25 @@ public class DriveControl implements Updatable {
                 if (!backUpRight) {
                     leftServoMotor.goToSpeed(-2);
                     rightServoMotor.goToSpeed(-2);
-                    backLed.toggle();
-                    backLed1.toggle();
-                    buzzer.toggle();
+                    backLed.Update();
+                    backLed1.Update();
+                    buzzer.Update();
                     backUpRight = true;
                     backUpTimer.mark();
                 } else {
                     if (backUpTimer.timeout()) {
                         leftServoMotor.goToSpeed(-2);
                         rightServoMotor.goToSpeed(2);
-                        backLed.toggle();
-                        backLed1.toggle();
-                        buzzer.toggle();
-                        rightLed.toggle();
+                        backLed.Update();
+                        backLed1.Update();
+                        buzzer.Update();
+                        rightLed.Update();
                         turnTimer.mark();
                     }
                     if (turnTimer.timeout()) {
                         leftServoMotor.goToSpeed(4);
                         rightServoMotor.goToSpeed(4);
-                        rightLed.toggle();
+                        rightLed.Update();
                         backUpRight = false;
                     }
                 }
