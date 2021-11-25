@@ -63,7 +63,6 @@ public class Led implements Updatable {
             return;
         if (this.timer1.timeout()){
             toggle();
-            System.out.println("led: " + this.pin + " is now " + this.state + " with color " + this.color);
             this.timer1.mark();
         }
     }

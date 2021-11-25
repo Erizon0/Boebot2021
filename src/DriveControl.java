@@ -15,9 +15,9 @@ public class DriveControl implements Updatable {
     private boolean backUpLeft = false;
     private boolean backUpRight = false;
 
-    private Timer turnTimer = new Timer(500);
-    private Timer stopTimer = new Timer(1000);
-    private Timer backUpTimer = new Timer(2000);
+    private Timer turnTimer = new Timer(5000);
+    private Timer stopTimer = new Timer(2000);
+    private Timer backUpTimer = new Timer(1000);
     private Timer buttonTimer = new Timer(5000);
 
     private Button button = new Button(0);
@@ -67,45 +67,51 @@ public class DriveControl implements Updatable {
                 leftLed.turnOn();
                 backLed.turnOn();
                 backLed1.turnOn();
-                System.out.println("IK MAG NIET RIJDEN");
-//                System.out.println(this.state);
-                if (button.isPressed())
+//                System.out.println("IK MAG NIET RIJDEN");
+                if (!button.isPressed())
                     this.state = 0;
                 break;
 
             case 0:
-//                System.out.println(this.state);
-                leftServoMotor.goToSpeed(5);
-                rightServoMotor.goToSpeed(5);
+                leftServoMotor.goToSpeed(3);
+                rightServoMotor.goToSpeed(3);
                 if (rightWhisker.isPressed()) {
                     this.backUpRight = true;
                     this.state = 1;
+                    this.backUpTimer.mark();
                 }
                 if (leftWhisker.isPressed()) {
                     this.backUpLeft = true;
                     this.state = 1;
+                    this.backUpTimer.mark();
                 }
-//                leftServoMotor.Update();
-//                rightServoMotor.Update();
                 break;
 
             case 1:
                 backward();
                 if (backUpTimer.timeout())
                     this.state = 2;
-                    backUpTimer.mark();
+                stopTimer.mark();
                 break;
 
             case 2:
                 stop();
                 if (stopTimer.timeout()) {
-                    if (this.backUpRight)
+                    System.out.println("Timer is gesprongen");
+                    if (this.backUpRight) {
+                        this.backUpLeft = false;
                         this.state = 3;
-                    if (this.backUpLeft)
+                    }
+                    if (this.backUpLeft){
+                        this.backUpRight = false;
                         this.state = 4;
-                    this.state = 0;
+                    }
+
+                    if (!this.backUpRight && !this.backUpLeft)
+                        this.state = 0;
+
                 }
-                stopTimer.mark();
+                turnTimer.mark();
                 break;
 
 
@@ -115,7 +121,7 @@ public class DriveControl implements Updatable {
                 this.backUpRight = false;
                 if (turnTimer.timeout()) {
                     this.state = 2;
-                    turnTimer.mark();
+                    stopTimer.mark();
                 }
                 break;
 
@@ -126,11 +132,16 @@ public class DriveControl implements Updatable {
                 this.backUpLeft = false;
                 if (turnTimer.timeout()) {
                     this.state = 2;
-                    turnTimer.mark();
+                    stopTimer.mark();
                 }
                 break;
         }
-        System.out.println(this.state);
+        if(button.isPressed()){
+            this.state = -1;
+        }
+        System.out.println("current state: " + this.state);
+        System.out.println("current speed right: " + rightServoMotor.getSpeed());
+        System.out.println("current speed left: " + leftServoMotor.getSpeed());
         leftServoMotor.Update();
         rightServoMotor.Update();
 

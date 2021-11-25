@@ -21,9 +21,13 @@ public class ServoMotor implements Updatable {
         targetGear = 0;
     }
 
+    public int getSpeed (){
+        return this.currentGear;
+    }
+
     public void goToSpeed(int gear) {
         this.targetGear = this.direction * gear;
-        timer.mark();
+
     }
 
     public void stop() {
@@ -43,7 +47,7 @@ public class ServoMotor implements Updatable {
                 } else if (targetGear < currentGear) {
                     currentGear--;
                 }
-                timer.timeout();
+                timer.mark();
             }
         }
 
