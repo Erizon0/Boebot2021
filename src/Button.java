@@ -29,7 +29,7 @@ public class Button implements Updatable {
     }
 
     @Override
-    public void Update() {
+    public void update() {
         getstate();
         if(!BoeBot.digitalRead(this.pin)){
             this.currentState = !this.currentState;

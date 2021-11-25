@@ -48,7 +48,7 @@ public class Buzzer implements Updatable {
     }
 
     @Override
-    public void Update() {
+    public void update() {
         if(this.tBeep == null)
             return;
         if (this.tBeep.timeout()){

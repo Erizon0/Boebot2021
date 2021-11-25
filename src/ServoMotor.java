@@ -35,10 +35,10 @@ public class ServoMotor implements Updatable {
         this.currentGear = 0;
     }
 
-    //Fuck this
+
     //*uses gears instead of an overly complicated exponential curve*
     @Override
-    public void Update() {
+    public void update() {
 
         if (targetGear != currentGear) {
             if (timer.timeout()) {
@@ -50,42 +50,43 @@ public class ServoMotor implements Updatable {
                 timer.mark();
             }
         }
+        servo.update(currentGear * 20 + 1500);
 
-        switch (currentGear) {
-            case -5:
-                servo.update(1400);
-                break;
-            case -4:
-                servo.update(1420);
-                break;
-            case -3:
-                servo.update(1440);
-                break;
-            case -2:
-                servo.update(1460);
-                break;
-            case -1:
-                servo.update(1480);
-                break;
-            case 0:
-                servo.update(1500);
-                break;
-            case 1:
-                servo.update(1520);
-                break;
-            case 2:
-                servo.update(1540);
-                break;
-            case 3:
-                servo.update(1560);
-                break;
-            case 4:
-                servo.update(1580);
-                break;
-            case 5:
-                servo.update(1600);
-                break;
-        }
+//        switch (currentGear) {
+//            case -5:
+//                servo.update(1400);
+//                break;
+//            case -4:
+//                servo.update(1420);
+//                break;
+//            case -3:
+//                servo.update(1440);
+//                break;
+//            case -2:
+//                servo.update(1460);
+//                break;
+//            case -1:
+//                servo.update(1480);
+//                break;
+//            case 0:
+//                servo.update(1500);
+//                break;
+//            case 1:
+//                servo.update(1520);
+//                break;
+//            case 2:
+//                servo.update(1540);
+//                break;
+//            case 3:
+//                servo.update(1560);
+//                break;
+//            case 4:
+//                servo.update(1580);
+//                break;
+//            case 5:
+//                servo.update(1600);
+//                break;
+//        }
 
     }
 

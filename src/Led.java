@@ -58,7 +58,7 @@ public class Led implements Updatable {
     }
 
     @Override
-    public void Update() {
+    public void update() {
         if(this.timer1 == null)
             return;
         if (this.timer1.timeout()){

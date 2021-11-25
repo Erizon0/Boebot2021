@@ -22,7 +22,7 @@ public class Whisker implements Updatable {
     }
 
     @Override
-    public void Update() {
+    public void update() {
         if(isPressed()&& timer.timeout()){
             timer.mark();
             //System.out.println("whisker on pin: " + this.pin + " is pressed");

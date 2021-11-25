@@ -1,5 +1,4 @@
 import TI.BoeBot;
-import javafx.beans.binding.BooleanExpression;
 
 public class Bot_Main {
 
@@ -15,8 +14,8 @@ public class Bot_Main {
         DriveControl driveControl = new DriveControl(leftServoMotor, rightServoMotor, leftWhisker, rightWhisker);
 
         while (true) {
-            driveControl.Update();
-            BoeBot.wait(1);
+            driveControl.update();
+            BoeBot.wait(5);
         }
 
     }
