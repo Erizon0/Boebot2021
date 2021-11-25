@@ -25,7 +25,7 @@ public class Buzzer implements Updatable {
         tBeep = new Timer(interval);
     }
 
-    public void startBeep () { ;
+    public void startBeep () {
         this.pwm.start();
     }
 
@@ -33,6 +33,7 @@ public class Buzzer implements Updatable {
         this.pwm.stop();
     }
 
+    //TODO: I presume this works, but check please
     public void toggle(){
         this.state =! this.state;
         if(this.state = true)

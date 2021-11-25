@@ -14,10 +14,11 @@ public class Whisker implements Updatable {
 
     }
 
+    //TODO: does whisker work now?
     public boolean isPressed() {
         this.currentState = !BoeBot.digitalRead(this.pin);
         //System.out.println("pin: " + this.pin + this.currentState);
-        return !BoeBot.digitalRead(this.pin);
+        return this.currentState;
     }
 
     @Override

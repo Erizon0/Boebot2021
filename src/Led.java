@@ -11,7 +11,7 @@ public class Led implements Updatable {
 
     private boolean state;
 
-
+    //TODO: Check if this works
     public Led(int pin, Color color) {
         this.pin = pin;
         this.color = color;
