@@ -38,7 +38,11 @@ public class ServoMotor implements Updatable {
 
         if (targetGear != currentGear) {
             if (timer.timeout()) {
-                currentGear++;
+                if (targetGear > currentGear) {
+                    currentGear++;
+                } else if (targetGear < currentGear) {
+                    currentGear--;
+                }
                 timer.timeout();
             }
         }
