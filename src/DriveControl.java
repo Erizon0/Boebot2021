@@ -21,7 +21,10 @@ public class DriveControl implements Updatable {
 
     private Button button = new Button(0);
 
+    //TODO: Don't know if buzzer works
     Buzzer buzzer = new Buzzer(10, 30, 250);
+
+    //TODO: Don't know which pin is which led
     Led rightLed = new Led(0, Color.white);
     Led leftLed = new Led(1, Color.white);
     Led backLed = new Led(2, Color.white);
@@ -33,6 +36,10 @@ public class DriveControl implements Updatable {
         this.leftWhisker = leftWhisker;
         this.rightWhisker = rightWhisker;
         BoeBot.setMode(0, PinMode.Input);
+
+        leftServoMotor.goToSpeed(4);
+        leftServoMotor.goToSpeed(4);
+
     }
 
     @Override
@@ -46,17 +53,18 @@ public class DriveControl implements Updatable {
             if (leftWhisker.isPressed() || backUpLeft) {
 
                 if (!backUpLeft) {
-                    leftServoMotor.goToSpeed(-100);
-                    rightServoMotor.goToSpeed(-100);
+                    leftServoMotor.goToSpeed(-2);
+                    rightServoMotor.goToSpeed(-2);
                     backLed.toggle();
                     backLed1.toggle();
                     buzzer.toggle();
                     backUpLeft = true;
                     backUpTimer.mark();
                 } else {
+
                     if (backUpTimer.timeout()) {
-                        leftServoMotor.goToSpeed(100);
-                        rightServoMotor.goToSpeed(-100);
+                        leftServoMotor.goToSpeed(2);
+                        rightServoMotor.goToSpeed(-2);
                         backLed.toggle();
                         backLed1.toggle();
                         buzzer.toggle();
@@ -64,18 +72,19 @@ public class DriveControl implements Updatable {
                         turnTimer.mark();
                     }
                     if (turnTimer.timeout()) {
-                        leftServoMotor.goToSpeed(100);
-                        rightServoMotor.goToSpeed(100);
+                        leftServoMotor.goToSpeed(4);
+                        rightServoMotor.goToSpeed(4);
                         leftLed.toggle();
                         backUpLeft = false;
                     }
+
                 }
 
             } else if (rightWhisker.isPressed() || backUpRight) {
 
                 if (!backUpRight) {
-                    leftServoMotor.goToSpeed(-100);
-                    rightServoMotor.goToSpeed(-100);
+                    leftServoMotor.goToSpeed(-2);
+                    rightServoMotor.goToSpeed(-2);
                     backLed.toggle();
                     backLed1.toggle();
                     buzzer.toggle();
@@ -83,8 +92,8 @@ public class DriveControl implements Updatable {
                     backUpTimer.mark();
                 } else {
                     if (backUpTimer.timeout()) {
-                        leftServoMotor.goToSpeed(-100);
-                        rightServoMotor.goToSpeed(100);
+                        leftServoMotor.goToSpeed(-2);
+                        rightServoMotor.goToSpeed(2);
                         backLed.toggle();
                         backLed1.toggle();
                         buzzer.toggle();
@@ -92,8 +101,8 @@ public class DriveControl implements Updatable {
                         turnTimer.mark();
                     }
                     if (turnTimer.timeout()) {
-                        leftServoMotor.goToSpeed(100);
-                        rightServoMotor.goToSpeed(100);
+                        leftServoMotor.goToSpeed(4);
+                        rightServoMotor.goToSpeed(4);
                         rightLed.toggle();
                         backUpRight = false;
                     }

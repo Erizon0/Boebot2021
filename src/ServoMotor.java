@@ -3,69 +3,80 @@ import TI.Timer;
 
 public class ServoMotor implements Updatable {
 
-    private static final double INCREMENTPERCENT = 1.05; //By what percentage will the robot ramp up
-    static final double NEUTRAL = 1500; //What number makes the servo stop driving
-    private final double INCREMENTFLOOR = 0.01;
-    private static final double INCREMENTCEIL = 1.0;
+    private int targetGear;
+    private int currentGear;
 
-    //Temporary var for testing without boebot
-    //private int tempspeed;
-
-    private int currentSpeed;
-    private int targetSpeed;
-
-    //TODO: There is a better way to do this
+    //TODO: There is a better way to do the directions
     private int direction; //Is either 1 or -1
     private Servo servo;
 
     private Timer timer = new Timer(100);
 
-    private double incrementNumber;
-
-
     public ServoMotor(int pin, int direction) {
-        incrementNumber = INCREMENTFLOOR;
         this.direction = direction;
-
         this.servo = new Servo(pin);
         this.servo.start();
+
+        currentGear = 0;
+        targetGear = 0;
     }
 
-    public void goToSpeed(int speed) {
-        incrementNumber = INCREMENTFLOOR;
-        targetSpeed = speed + 1500;
+    public void goToSpeed(int gear) {
+        this.targetGear = this.direction * gear;
+        timer.mark();
     }
 
     public void stop() {
-        incrementNumber = INCREMENTFLOOR;
-        targetSpeed = 1500;
-        servo.update(1500);
+        this.targetGear = 0;
+        this.currentGear = 0;
     }
 
-    //TODO: This method of ramping up could be a lot better (the way this works with incrementNumber), but I can't think of a better way right now.
+    //Fuck this
+    //*uses gears instead of an overly complicated exponential curve*
     @Override
     public void Update() {
 
-        currentSpeed = servo.getPulseWidth();
-        System.out.println(currentSpeed);
-        if(currentSpeed > 1600 || currentSpeed < 1400){
-            return;
+        if (targetGear != currentGear) {
+            if (timer.timeout()) {
+                currentGear++;
+                timer.timeout();
+            }
         }
 
-        if (targetSpeed != currentSpeed && timer.timeout()) {
-            timer.mark();
-            if (incrementNumber < INCREMENTCEIL) {
-                //Print out the increment difference
-                //System.out.println(incrementNumber * INCREMENTPERCENT - incrementNumber);
-                incrementNumber *= INCREMENTPERCENT;
-            }
-
-            int difference = targetSpeed - currentSpeed;
-            double incrementSpeed =  difference * incrementNumber;
-            int newSpeed = currentSpeed + this.direction * (int)Math.ceil(incrementSpeed);
-            this.currentSpeed = newSpeed;
-            servo.update(newSpeed);
-            //System.out.println("Updated speed to: " + newSpeed);
+        switch (currentGear) {
+            case -5:
+                servo.update(1400);
+                break;
+            case -4:
+                servo.update(1420);
+                break;
+            case -3:
+                servo.update(1440);
+                break;
+            case -2:
+                servo.update(1460);
+                break;
+            case -1:
+                servo.update(1480);
+                break;
+            case 0:
+                servo.update(1500);
+                break;
+            case 1:
+                servo.update(1520);
+                break;
+            case 2:
+                servo.update(1540);
+                break;
+            case 3:
+                servo.update(1560);
+                break;
+            case 4:
+                servo.update(1580);
+                break;
+            case 5:
+                servo.update(1600);
+                break;
         }
 
     }

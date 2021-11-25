@@ -14,7 +14,6 @@ public class Bot_Main {
         DriveControl driveControl = new DriveControl(leftServoMotor, rightServoMotor, leftWhisker, rightWhisker);
 
         while (true) {
-
             driveControl.Update();
             BoeBot.wait(1);
         }
