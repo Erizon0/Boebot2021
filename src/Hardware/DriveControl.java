@@ -1,7 +1,5 @@
-package Deprecated.Hardware;
+package Hardware;
 
-import Deprecated.Hardware.Button;
-import Deprecated.Hardware.Buzzer;
 import TI.BoeBot;
 import TI.PinMode;
 import TI.Timer;
@@ -24,7 +22,7 @@ public class DriveControl implements Update {
     private Timer backUpTimer = new Timer(3000);
     private Timer buttonTimer = new Timer(5000);
 
-    private Deprecated.Hardware.Button button = new Button(1);
+    private Hardware.Button button = new Button(1);
     private int state = -1;
 
     Buzzer buzzer = new Buzzer(10, 0, 250);

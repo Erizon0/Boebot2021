@@ -1,4 +1,4 @@
-package Deprecated.Hardware;
+package Hardware;
 
 import TI.Servo;
 import TI.Timer;

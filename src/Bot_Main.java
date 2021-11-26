@@ -1,5 +1,5 @@
-import Deprecated.Hardware.DriveControl;
-import Deprecated.Hardware.Whisker;
+import Hardware.DriveControl;
+import Hardware.Whisker;
 import TI.BoeBot;
 
 public class Bot_Main {

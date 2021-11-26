@@ -1,4 +1,4 @@
-package Deprecated.State;
+package State;
 
 public class Automatic {
 }

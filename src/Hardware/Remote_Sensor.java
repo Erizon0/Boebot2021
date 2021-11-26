@@ -1,4 +1,4 @@
-package Deprecated.Hardware;
+package Hardware;
 
 public class Remote_Sensor {
 }

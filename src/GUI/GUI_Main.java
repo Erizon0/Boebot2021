@@ -1,4 +1,4 @@
-package Deprecated.GUI;
+package GUI;
 
 public class GUI_Main {
 }

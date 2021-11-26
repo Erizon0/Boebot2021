@@ -1,6 +1,5 @@
-package Deprecated.Hardware;
+package Hardware;
 
-import TI.BoeBot;
 import TI.PWM;
 import TI.Timer;
 

@@ -1,4 +1,4 @@
-package Deprecated.Hardware;
+package Hardware;
 
 public interface Update {
     void update();
