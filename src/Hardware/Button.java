@@ -9,7 +9,6 @@ public class Button implements Update {
     private boolean currentState;
     private Timer timer = new Timer(200);
 
-    //"Immensely complex and high risk"
     public Button(int pin) {
         this.pin = pin;
         this.currentState = true;

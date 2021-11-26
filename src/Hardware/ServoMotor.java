@@ -1,7 +1,6 @@
 package Hardware;
 
-import TI.Servo;
-import TI.Timer;
+import TI.*;
 
 public class ServoMotor implements Update {
 

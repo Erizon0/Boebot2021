@@ -6,6 +6,8 @@ import TI.Timer;
 
 import java.awt.*;
 
+//TODO refactor class
+
 public class DriveControl implements Update {
 
     private ServoMotor leftServoMotor;
@@ -25,7 +27,7 @@ public class DriveControl implements Update {
     private Hardware.Button button = new Button(1);
     private int state = -1;
 
-    Buzzer buzzer = new Buzzer(10, 0, 250);
+    Buzzer buzzer;
 
     private Led rightLed = new Led(0, Color.red, 500);
     private Led leftLed = new Led(5, Color.white, 500);
@@ -38,7 +40,7 @@ public class DriveControl implements Update {
         this.leftWhisker = leftWhisker;
         this.rightWhisker = rightWhisker;
         BoeBot.setMode(0, PinMode.Input);
-
+        this.buzzer = new Buzzer(10, 200, 500);
         leftServoMotor.goToSpeed(4);
         leftServoMotor.goToSpeed(4);
     }
@@ -135,6 +137,7 @@ public class DriveControl implements Update {
                 leftLed.turnOn();
                 backLed.turnOn();
                 backLed1.turnOn();
+                buzzer.stopBeep();
 //                System.out.println("IK MAG NIET RIJDEN");
                 if (!button.isPressed())
                     this.state = 0;

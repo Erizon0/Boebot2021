@@ -12,7 +12,6 @@ public class Buzzer implements Update {
 
     private PWM pwm;
 
-    //volgens mij moet je hier nog "BoeBot.freqOut();" gebruiken
     public Buzzer(int pin, int frequency) {
         this.pin = pin;
         this.frequency = frequency;
@@ -36,7 +35,6 @@ public class Buzzer implements Update {
         this.state = 0;
     }
 
-    //TODO: I presume this works, but check please
     public void toggle(){
         switch (this.state){
             case 0:
