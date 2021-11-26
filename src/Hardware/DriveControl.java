@@ -1,5 +1,6 @@
 package Hardware;
 
+import Interface.Update;
 import TI.BoeBot;
 import TI.PinMode;
 import TI.Timer;
@@ -12,6 +13,7 @@ public class DriveControl implements Update {
 
     private ServoMotor leftServoMotor;
     private ServoMotor rightServoMotor;
+    private ServoControl servoControl;
 
     private Whisker leftWhisker;
     private Whisker rightWhisker;
@@ -34,8 +36,7 @@ public class DriveControl implements Update {
     private Led backLed1 = new Led(3, Color.red, 500);
 
     public DriveControl(ServoMotor leftServoMotor, ServoMotor rightServoMotor, Whisker leftWhisker, Whisker rightWhisker) {
-        this.leftServoMotor = leftServoMotor;
-        this.rightServoMotor = rightServoMotor;
+        this.servoControl = new ServoControl(leftServoMotor, rightServoMotor);
         this.leftWhisker = leftWhisker;
         this.rightWhisker = rightWhisker;
         BoeBot.setMode(0, PinMode.Input);

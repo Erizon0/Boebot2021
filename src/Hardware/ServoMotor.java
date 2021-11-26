@@ -1,8 +1,9 @@
 package Hardware;
 
+import Interface.Update;
 import TI.*;
 
-public class ServoMotor implements Update {
+public class ServoMotor {
 
     private int targetGear;
     private int currentGear;
@@ -28,7 +29,6 @@ public class ServoMotor implements Update {
 
     public void goToSpeed(int gear) {
         this.targetGear = this.direction * gear;
-
     }
 
     public void stop() {
@@ -36,13 +36,15 @@ public class ServoMotor implements Update {
         this.currentGear = 0;
     }
 
-
     //*uses gears instead of an overly complicated exponential curve*
-    @Override
     public void update() {
 
+        //Check if the current gear is the same as the target gear
         if (targetGear != currentGear) {
+            //Check if timer has run out and the servo's can go a gear higher
             if (timer.timeout()) {
+
+                //If the current gear is smaller than the target gear go 
                 if (targetGear > currentGear) {
                     currentGear++;
                 } else if (targetGear < currentGear) {

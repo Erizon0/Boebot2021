@@ -1,11 +1,12 @@
 package Hardware;
 
+import Interface.Update;
 import TI.BoeBot;
 import TI.Timer;
 
 import java.awt.*;
 
-public class Led implements Update{
+public class Led implements Update {
     private int pin;
     private Color color;
     private Timer timer1;

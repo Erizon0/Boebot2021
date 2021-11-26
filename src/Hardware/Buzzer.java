@@ -1,5 +1,6 @@
 package Hardware;
 
+import Interface.Update;
 import TI.PWM;
 import TI.Timer;
 
