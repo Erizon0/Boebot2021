@@ -22,12 +22,11 @@ public class DriveControl implements Update {
     private Timer turnTimer = new Timer(1000);
     private Timer stopTimer = new Timer(2000);
     private Timer backUpTimer = new Timer(3000);
-    private Timer buttonTimer = new Timer(5000);
 
-    private Hardware.Button button = new Button(1);
+    private Button button = new Button(0);
     private int state = -1;
 
-    Buzzer buzzer;
+    private Buzzer buzzer;
 
     private Led rightLed = new Led(0, Color.red, 500);
     private Led leftLed = new Led(5, Color.white, 500);
@@ -71,7 +70,7 @@ public class DriveControl implements Update {
                 if (leftWhisker.isPressed()) {
                     this.backUpLeft = true;
                     this.state = 1;
-                   this.backUpTimer.mark();
+                    this.backUpTimer.mark();
                     this.stopTimer.mark();
                 }
                 break;
@@ -81,6 +80,7 @@ public class DriveControl implements Update {
                 if(stopTimer.timeout()) {
                     backward();
                     buzzer.update();
+                    this.buzzer.update();
                     if (backUpTimer.timeout())
                         this.state = 2;
                     stopTimer.mark();
@@ -89,6 +89,7 @@ public class DriveControl implements Update {
 
             case 2:
                 stop();
+                this.buzzer.stopBeep();
                 if (stopTimer.timeout()) {
                     System.out.println("Timer is gesprongen");
                     if (this.backUpRight) {
@@ -130,7 +131,6 @@ public class DriveControl implements Update {
                 break;
 
             default:
-                buttonTimer.mark();
                 leftServoMotor.stop();
                 rightServoMotor.stop();
                 rightLed.turnOn();
@@ -150,9 +150,10 @@ public class DriveControl implements Update {
         System.out.println("current state: " + this.state);
         System.out.println("current speed right: " + rightServoMotor.getSpeed());
         System.out.println("current speed left: " + leftServoMotor.getSpeed());
+        System.out.println("Rightwisker = " + this.rightWhisker.isPressed());
+        System.out.println("Leftwisker = " + this.leftWhisker.isPressed());
+//        BoeBot.wait(2000);
         leftServoMotor.update();
         rightServoMotor.update();
-
-
     }
 }

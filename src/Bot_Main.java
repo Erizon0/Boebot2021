@@ -23,11 +23,11 @@ public class Bot_Main {
     method for initialsing everything
      */
     public void init(){
-        ServoMotor leftServoMotor = new ServoMotor(1, 1);
-        ServoMotor rightServoMotor = new ServoMotor(1,1);
+        ServoMotor leftServoMotor = new ServoMotor(13, -1);
+        ServoMotor rightServoMotor = new ServoMotor(12,1);
 
-        Whisker leftWhisker = new Whisker(1);
-        Whisker rightWhisker = new Whisker(1);
+        Whisker leftWhisker = new Whisker(3);
+        Whisker rightWhisker = new Whisker(4);
 
         this.driveControl = new DriveControl(leftServoMotor, rightServoMotor, leftWhisker, rightWhisker);
     }
@@ -37,8 +37,8 @@ public class Bot_Main {
      */
     public void run() throws InterruptedException{
         while (true) {
-            for(Update update : this.updatables )
-                update.update();
+//            for(Update update : this.updatables )
+//                update.update();
 
             //todo remove VVVVVVVVVVV
             this.driveControl.update();
