@@ -30,10 +30,10 @@ public class DriveControl implements Update {
 
     private Buzzer buzzer;
 
-    private Led rightLed = new Led(0, Color.red, 500);
-    private Led leftLed = new Led(5, Color.white, 500);
-    private Led backLed = new Led(2, Color.white,500);
-    private Led backLed1 = new Led(3, Color.red, 500);
+//    private Led rightLed = new Led(0, Color.red, 500);
+//    private Led leftLed = new Led(5, Color.white, 500);
+//    private Led backLed = new Led(2, Color.white,500);
+//    private Led backLed1 = new Led(3, Color.red, 500);
 
     public DriveControl(ServoMotor leftServoMotor, ServoMotor rightServoMotor, Whisker leftWhisker, Whisker rightWhisker) {
         this.servoControl = new ServoControl(leftServoMotor, rightServoMotor);
@@ -134,10 +134,10 @@ public class DriveControl implements Update {
             default:
                 leftServoMotor.stop();
                 rightServoMotor.stop();
-                rightLed.turnOn();
-                leftLed.turnOn();
-                backLed.turnOn();
-                backLed1.turnOn();
+//                rightLed.turnOn();
+//                leftLed.turnOn();
+//                backLed.turnOn();
+//                backLed1.turnOn();
                 buzzer.stopBeep();
 //                System.out.println("IK MAG NIET RIJDEN");
                 if (!button.isPressed())

@@ -1,6 +1,7 @@
 package Hardware;
 
 import Interface.Update;
+import TI.BoeBot;
 import TI.PWM;
 import TI.Timer;
 
@@ -9,6 +10,7 @@ public class Buzzer implements Update {
     private int pin;
     private int frequency;
     private int state;
+    private int interval;
     private Timer tBeep;;
 
     private PWM pwm;
@@ -19,11 +21,34 @@ public class Buzzer implements Update {
         this.pwm = new PWM(this.pin, this.frequency);
     }
 
+//    public Buzzer(int pin, int frequency, int interval){
+//        this.pin = pin;
+//        this.frequency = frequency;
+//        this.pwm = new PWM(this.pin, this.frequency);
+//        this.interval = interval;
+//        tBeep = new Timer(interval);
+//    }
+
     public Buzzer(int pin, int frequency, int interval){
-        this.pin = pin;
+        BoeBot.freqOut(pin,frequency,interval);
+
+    }
+
+    public int getFrequency() {
+        return frequency;
+    }
+
+    public int getInterval() {
+        return this.interval;
+    }
+
+    public void setFrequency(int frequency) {
         this.frequency = frequency;
-        this.pwm = new PWM(this.pin, this.frequency);
-        tBeep = new Timer(interval);
+    }
+
+    public void settInterval(int interval) {
+        this.tBeep.setInterval(interval);
+        this.tBeep.mark();
     }
 
     public void startBeep () {
