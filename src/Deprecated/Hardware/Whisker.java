@@ -1,8 +1,10 @@
+package Deprecated.Hardware;
+
 import TI.BoeBot;
 import TI.PinMode;
 import TI.Timer;
 
-public class Whisker implements Updatable {
+public class Whisker implements Update {
 
     private int pin;
     private boolean currentState;

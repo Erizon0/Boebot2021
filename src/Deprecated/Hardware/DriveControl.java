@@ -1,3 +1,5 @@
+package Deprecated.Hardware;
+
 import Deprecated.Hardware.Button;
 import Deprecated.Hardware.Buzzer;
 import TI.BoeBot;
@@ -6,7 +8,7 @@ import TI.Timer;
 
 import java.awt.*;
 
-public class DriveControl implements Updatable {
+public class DriveControl implements Update {
 
     private ServoMotor leftServoMotor;
     private ServoMotor rightServoMotor;
