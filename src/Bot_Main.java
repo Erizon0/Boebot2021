@@ -4,6 +4,7 @@ import TI.BoeBot;
 
 import java.util.ArrayList;
 
+//TODO: Clean up this class
 public class Bot_Main {
 
     private DriveControl driveControl;
@@ -41,28 +42,9 @@ public class Bot_Main {
 //            for(Update update : this.updatables )
 //                update.update();
 
-            //todo remove VVVVVVVVVVV
             this.driveControl.update();
             BoeBot.wait(5);
         }
     }
-
-//    //We need to have a place to initialize all hardware
-//    public static void main(String[] args) {
-//
-//        ServoMotor leftServoMotor = new ServoMotor(13, -1);
-//        ServoMotor rightServoMotor = new ServoMotor(12,1);
-//
-//        Whisker leftWhisker = new Whisker(3);
-//        Whisker rightWhisker = new Whisker(4);
-//
-//        DriveControl driveControl = new DriveControl(leftServoMotor, rightServoMotor, leftWhisker, rightWhisker);
-//
-//        while (true) {
-//            driveControl.update();
-//            BoeBot.wait(5);
-//        }
-//
-//    }
 
 }

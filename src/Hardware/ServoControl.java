@@ -1,5 +1,6 @@
 package Hardware;
 
+import Interface.DriveState;
 import Interface.Update;
 import TI.Timer;
 
@@ -12,13 +13,16 @@ public class ServoControl implements Update {
     private Timer turnTimer = new Timer(100);
     private Timer driveTimer = new Timer(100);
 
+    private DriveState callback;
+
     //Booleans that say if the robot is performing a "Back Turn"
     private boolean performingBLTurn = false;
     private boolean performingBRTurn = false;
 
-    public ServoControl(ServoMotor leftServo, ServoMotor rightServo) {
+    public ServoControl(ServoMotor leftServo, ServoMotor rightServo, DriveState callback) {
         this.leftServo = leftServo;
         this.rightServo = rightServo;
+        this.callback = callback;
     }
 
     //TODO: turnRight and turnLeft have duplicate code
@@ -28,6 +32,7 @@ public class ServoControl implements Update {
         this.turnTimer.mark();
         this.leftServo.goToSpeed(1);
         this.rightServo.goToSpeed(-1);
+        callback.turnRightToggle();
     }
 
     //Turn left for a certain time
@@ -36,6 +41,7 @@ public class ServoControl implements Update {
         this.turnTimer.mark();
         this.leftServo.goToSpeed(-1);
         this.rightServo.goToSpeed(1);
+        callback.turnLeftToggle();
     }
 
     //Slowly ramp up to the designated speed
@@ -68,8 +74,10 @@ public class ServoControl implements Update {
     public void turnBackLeft() {
         if (!performingBLTurn) {
             timedDrive(-1, 400);
+            callback.buzzerToggle();
             performingBLTurn = true;
         } else {
+            callback.buzzerToggle();
             turnLeft(200);
             performingBLTurn = false;
         }
@@ -79,8 +87,10 @@ public class ServoControl implements Update {
     public void turnBackRight() {
         if (!performingBLTurn) {
             timedDrive(-1, 400);
+            callback.buzzerToggle();
             performingBRTurn = true;
         } else {
+            callback.buzzerToggle();
             turnRight(200);
             performingBRTurn = false;
         }
@@ -94,6 +104,7 @@ public class ServoControl implements Update {
         //Check if turnTimer has run out and make the robot stop
         if (turnTimer.timeout()) {
             turnTimer.setInterval(100);
+
             this.leftServo.stop();
             this.leftServo.stop();
         }

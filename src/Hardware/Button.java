@@ -2,6 +2,7 @@ package Hardware;
 
 import Interface.Update;
 import TI.BoeBot;
+import TI.PinMode;
 import TI.Timer;
 
 public class Button implements Update {
@@ -13,12 +14,13 @@ public class Button implements Update {
     public Button(int pin) {
         this.pin = pin;
         this.currentState = true;
+        BoeBot.setMode(this.pin, PinMode.Input);
     }
 
     public boolean isPressed() {
         getstate();
 
-        if(!BoeBot.digitalRead(0)&&timer.timeout()){
+        if(!BoeBot.digitalRead(this.pin) && timer.timeout()){
             timer.mark();
             this.currentState = !this.currentState;
         }

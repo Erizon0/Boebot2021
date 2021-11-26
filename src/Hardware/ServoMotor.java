@@ -23,14 +23,17 @@ public class ServoMotor {
         targetGear = 0;
     }
 
+    //Get the current speed of the servo
     public int getSpeed() {
         return this.currentGear;
     }
 
+    //Set the target speed and ramp up slowly
     public void goToSpeed(int gear) {
         this.targetGear = this.direction * gear;
     }
 
+    //Instantly stop the servo's
     public void stop() {
         this.targetGear = 0;
         this.currentGear = 0;
@@ -44,7 +47,7 @@ public class ServoMotor {
             //Check if timer has run out and the servo's can go a gear higher
             if (timer.timeout()) {
 
-                //If the current gear is smaller than the target gear go 
+                //If the target gear is bigger than the current gear go a gear higher, or else go lower. If it is equal do nothing
                 if (targetGear > currentGear) {
                     currentGear++;
                 } else if (targetGear < currentGear) {
@@ -53,6 +56,7 @@ public class ServoMotor {
                 timer.mark();
             }
         }
+        //Update the servo's to the right speed
         servo.update(currentGear * 20 + 1500);
     }
 }
