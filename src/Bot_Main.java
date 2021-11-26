@@ -8,7 +8,7 @@ public class Bot_Main {
         ServoMotor leftServoMotor = new ServoMotor(13, -1);
         ServoMotor rightServoMotor = new ServoMotor(12,1);
 
-        Whisker leftWhisker = new Whisker(1);
+        Whisker leftWhisker = new Whisker(3);
         Whisker rightWhisker = new Whisker(4);
 
         DriveControl driveControl = new DriveControl(leftServoMotor, rightServoMotor, leftWhisker, rightWhisker);

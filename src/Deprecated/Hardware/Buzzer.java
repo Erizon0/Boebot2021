@@ -1,8 +1,10 @@
+package Deprecated.Hardware;
+
 import TI.BoeBot;
 import TI.PWM;
 import TI.Timer;
 
-public class Buzzer implements Updatable {
+public class Buzzer implements Update {
 
     private int pin;
     private int frequency;

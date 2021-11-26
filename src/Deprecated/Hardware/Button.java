@@ -1,7 +1,9 @@
+package Deprecated.Hardware;
+
 import TI.BoeBot;
 import TI.Timer;
 
-public class Button implements Updatable {
+public class Button implements Update {
 
     private int pin;
     private boolean currentState;
