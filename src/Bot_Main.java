@@ -1,5 +1,4 @@
-import Hardware.DriveControl;
-import Hardware.Whisker;
+import Hardware.*;
 import TI.BoeBot;
 
 public class Bot_Main {
