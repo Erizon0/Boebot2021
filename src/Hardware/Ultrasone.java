@@ -33,6 +33,9 @@ public class Ultrasone implements Update {
         BoeBot.setMode(echoPin,PinMode.Output);
     }
 
+    /** Sets the callback for Ultrasone
+     * @param ultrasoneCallback Where Ultrasone should call back to
+     */
     public void setCallback(UltrasoneCallback ultrasoneCallback) {
         this.callback = ultrasoneCallback;
     }

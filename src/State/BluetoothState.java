@@ -14,14 +14,21 @@ import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * Class for he bluetoothstate and all of its logic
+ */
 public class BluetoothState extends ControlState {
 
+    /** Method for constructing a BleutoothState
+     * @param hardware The hardware class with all hardware in it
+     * @param callback Where the state should call back to when switching ot a different state
+     */
     public BluetoothState(Hardware hardware, DriveControl callback) {
         super(hardware, callback);
         resetLed();
     }
 
-    //TODO: Temporary timer for checking if the button is pressed
+    //Timer for checking if the button is pressed
     private Timer tempTimer = new Timer(100);
 
     private boolean isReceivingArray;
@@ -66,31 +73,6 @@ public class BluetoothState extends ControlState {
 
     }
 
-
-//        switch (bluetoothvalue){
-//            case 119:
-//                this.hardware.getBuzzer().setBuzzing(false);
-//                this.hardware.getServoControl().goToSpeed(5);
-//                break;
-//            case 115:
-//                this.hardware.getBuzzer().setBuzzing(true);
-//                this.hardware.getServoControl().goToSpeed(-5);
-//                break;
-//            case 97:
-//                this.hardware.getBuzzer().setBuzzing(false);
-//                this.hardware.getServoControl().turn(Direction.LEFT,5);
-//                break;
-//            case 100:
-//                this.hardware.getBuzzer().setBuzzing(false);
-//                this.hardware.getServoControl().turn(Direction.RIGHT,5);
-//                break;
-//            case 113:
-//                this.hardware.getBuzzer().setBuzzing(false);
-//                this.hardware.getServoControl().instantStop();
-//                break;
-//        }
-
-
     @Override
     public void onRemotePress(int value) {
         if (value != Remote_Buttons.BUTTON_TELETEXT) { //182
@@ -121,7 +103,6 @@ public class BluetoothState extends ControlState {
 
     @Override
     public void onButtonPress() {
-        System.out.println("Pressed button");
     }
 
     @Override
@@ -131,7 +112,6 @@ public class BluetoothState extends ControlState {
 
     @Override
     public void onLineFollowTrigger(LineFollower source, int rightfollow, int leftfollow) {
-//        System.out.println("Triggered line follower");
     }
 
     @Override

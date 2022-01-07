@@ -6,7 +6,8 @@ import javafx.scene.effect.Blend;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Enums for the different kinds of bluetooth signals
+/**
+ * Enums for the different kinds of bluetooth signals
  */
 public enum BluetoothControls {
     FORWARDS(119),
@@ -15,12 +16,11 @@ public enum BluetoothControls {
     RIGHT(100),
     EBRAKE(113),
     GRABBER(184),
-    STOPARRAY(9),
-    STARTARRAY(0);
+    STARTARRAY(69),
+    STOPARRAY(42);
 
     private int number;
-    private static Map map = new HashMap<>();
-
+    private static Map<Integer, BluetoothControls> map = new HashMap<>();
 
     /** Constructor for BluetoothControls
      * @param number The number associated with the corresponding bluetooth signal
@@ -29,9 +29,12 @@ public enum BluetoothControls {
         this.number = number;
     }
 
+    /**
+     * On init, add all enums to a map with their values
+     */
     static {
-        for (BluetoothControls bluetoothControls : BluetoothControls.values()){
-            map.put(bluetoothControls.number, bluetoothControls);
+        for (BluetoothControls bluetoothControl : BluetoothControls.values()){
+            map.put(bluetoothControl.getNumber(), bluetoothControl);
         }
     }
 
@@ -40,12 +43,11 @@ public enum BluetoothControls {
      * @return The enum that matches the number
      */
     public static BluetoothControls numberOf(int number){
-        return (BluetoothControls) map.get(number);
+        return map.get(number);
     }
 
     public int getNumber() {
         return number;
     }
 
-    }
-
+}

@@ -73,13 +73,10 @@ public class Buzzer implements Update {
      * Toggle the state of the buzzer
      */
     public void toggle(){
-        switch (this.currentState){
-            case 0:
-                startBeep();
-                break;
-            case 1:
-                stopBeep();
-                break;
+        if (this.currentState == 0) {
+            startBeep();
+        } else if (this.currentState == 1) {
+            stopBeep();
         }
     }
 

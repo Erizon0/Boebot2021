@@ -2,8 +2,12 @@ package Hardware;
 
 import Interface.*;
 
+/**
+ * The hardware class, here all the hardware can be accessed and updated
+ */
 public class Hardware implements Update {
 
+    //ES stands for Emergency Stop
     private Button ES;
 
     private ServoMotor leftServo;
@@ -29,8 +33,25 @@ public class Hardware implements Update {
     private Led backMiddleLed;
     private Gripper gripper;
 
+    /** Construct the Hardware object
+     * @param ES The Emergency Stop Button
+     * @param leftServo The left servo
+     * @param rightServo The right servo
+     * @param buzzer The buzzer
+     * @param infraRed The infrared sensor
+     * @param frontRightLed The front right LED on the robot
+     * @param frontLeftLed The front left LED on the robot
+     * @param backRightLed The back right LED on the robot
+     * @param backLeftLed The back left LED on the robot
+     * @param frontMiddleLed The front middle LED on the robot
+     * @param backMiddleLed The back middle LED on the robot
+     * @param lineFollower The linefollower class with both the linefollowers
+     * @param bluetooth The bluetooth module
+     * @param ultrasone The ultrasone sensor
+     */
     public Hardware(Button ES, ServoMotor leftServo, ServoMotor rightServo, Buzzer buzzer, InfraRed infraRed, Led frontRightLed, Led frontLeftLed, Led backRightLed, Led backLeftLed,
                     Led frontMiddleLed, Led backMiddleLed, LineFollower lineFollower, Bluetooth bluetooth, Ultrasone ultrasone) {
+
         this.ES = ES;
         this.leftServo = leftServo;
         this.rightServo = rightServo;

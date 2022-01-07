@@ -8,11 +8,13 @@ import Tools.ToggleTimer;
 
 import java.awt.*;
 
+/**
+ * A Led
+ */
 public class Led implements Update {
     private int pin;
     private Color color;
     private ToggleTimer blinkTimer;
-//    private final Timer blinktimer = new Timer(50);
     private boolean blinker = false;
     private LedState blinkState;
 
@@ -65,15 +67,6 @@ public class Led implements Update {
         } else if (this.blinkState == LedState.BLINKON) {
             turnBlinkOff();
         }
-
-//        switch (this.blinkState) {
-//            case BLINKOFF:
-//                turnBlinkOn();
-//                break;
-//            case BLINKON:
-//                turnBlinkOff();
-//                break;
-//        }
 
     }
 

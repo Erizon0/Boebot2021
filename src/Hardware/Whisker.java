@@ -5,8 +5,6 @@ import TI.BoeBot;
 import TI.PinMode;
 import TI.Timer;
 
-//TODO: Whisker should use a callback
-
 /**
  * A hardware whisker
  */

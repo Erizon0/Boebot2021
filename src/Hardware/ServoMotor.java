@@ -10,17 +10,16 @@ public class ServoMotor {
     private int targetGear;
     private int currentGear;
 
-    private boolean linefollowmode = false;
+    private boolean isLineFollowing = false;
     //TODO: There is a better way to do the directions, but good enough for now
     private int direction; //Is either 1 or -1
     private Servo servo;
 
     private Timer updateTimer = new Timer(200);
 
-    /**
-     * Construct a ServoMotor
+    /** Construct a ServoMotor
      *
-     * @param pin       What pin the servo is on
+     * @param pin What pin the servo is on
      * @param direction What direction the servo is facing
      */
     public ServoMotor(int pin, int direction) {
@@ -32,8 +31,7 @@ public class ServoMotor {
         this.targetGear = 0;
     }
 
-    /**
-     * Get the current speed of the servo
+    /** Get the current speed of the servo
      *
      * @return The speed the servo is going
      */
@@ -41,8 +39,7 @@ public class ServoMotor {
         return this.currentGear;
     }
 
-    /**
-     * Make the bot ramp up to the given speed
+    /** Make the bot ramp up to the given speed
      *
      * @param gear The gear the servo should ramp up to
      */
@@ -61,7 +58,7 @@ public class ServoMotor {
     }
 
     public void update() {
-        if (!linefollowmode) {
+        if (!isLineFollowing) {
             //Check if the current gear is the same as the target gear
             if (this.targetGear != this.currentGear) {
                 //Check if updateTimer has run out and the servo's can go a gear higher
@@ -81,14 +78,19 @@ public class ServoMotor {
         }
     }
 
+    /** Method for driving when the bot is linefollowing
+     * @param speed The speed with which the servo should drive
+     */
     public void instantUpdate(int speed) {
-        if (this.linefollowmode) {
-
+        if (this.isLineFollowing) {
             this.servo.update(speed);
         }
     }
 
-    public void setLinefollowmode(boolean state) {
-        this.linefollowmode = state;
+    /** Set the mode of the servo
+     * @param isLineFollowing Whether or not the bot should behave differently
+     */
+    public void setLinefollowMode(boolean isLineFollowing) {
+        this.isLineFollowing = isLineFollowing;
     }
 }

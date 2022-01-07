@@ -126,11 +126,9 @@ public class ServoControl implements Update {
     @Override
     public void update() {
 
-        //TODO: Check if when a timer times out it says timeout once or multiple times (for now the setInterval)
         //TODO: The bot will take more time than the timer to slow down gradually, need to find a way to calculate extra time, but for now good enough
         //Check if drivingTimer has run out
         if (this.drivingTimer.timeout() && this.isTimedDriving) {
-
             this.instantStop();
             this.isTimedDriving = false;
         } else if (this.turningTimer.timeout() && this.isTimeTurning) {
@@ -145,9 +143,7 @@ public class ServoControl implements Update {
         }
 
     }
-
-
-
+    
     public void lineServo(){
 
     }

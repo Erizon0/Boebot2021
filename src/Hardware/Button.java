@@ -15,8 +15,12 @@ public class Button implements Update {
 
     private int pin;
     private boolean currentState;
+
+    //How long the button can be pressed before registering it as a press
     private Timer updateTimer = new Timer(500);
 
+    //Callback for when the button is pressed
+    //This isn't used because the current implementation works
     private ButtonCallback callback;
 
     /** Construct a button
@@ -36,6 +40,7 @@ public class Button implements Update {
      * @return The value of the button
      */
     public boolean isPressed() {
+        //Check if the button is pressed and if the button can change value again
         if (!BoeBot.digitalRead(this.pin) && updateTimer.timeout()) {
             this.currentState = !this.currentState;
             updateTimer.mark();

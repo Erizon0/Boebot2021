@@ -38,19 +38,19 @@ public class Gripper implements Update {
     /**
      * Close the gripper
      */
-    //this method set's the isOpen to false so the gripper will closs
+    //this method set's the isOpen to false so the gripper will close
     public void close(){
         this.isOpen = false;
     }
 
-    public void grippermove(){
+    public void gripperMove(){
         if(this.gripperMove.timeout())
             this.gripperMove.mark();
         this.isOpen = !this.isOpen;
     }
 
     @Override
-    //the update class will update te gripperstate and the isOpen of the servo
+    //the update class will update te gripperState and the isOpen value of the servo
     public void update() {
         if(gripperTimer.timeout()) {
             gripperTimer.mark();

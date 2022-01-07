@@ -1,7 +1,5 @@
 package Tools;
 
-import TI.Timer;
-
 /**
  * A timer you can turn on or off, starts disabled
  */

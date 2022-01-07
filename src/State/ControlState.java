@@ -6,14 +6,14 @@ import Logic.DriveControl;
 
 import java.awt.*;
 
-/** Base class for all drive states
+/**
+ * Base class for all drive states
  */
 public abstract class ControlState implements DriveState, ServoCallback, IRCallback, ButtonCallback, BTCallback, LFCallback, UltrasoneCallback {
 
     protected Hardware hardware;
     protected DriveControl callback;
     protected boolean driving = true;
-
 
     /** Constructor for ControlState
      * @param hardware All the hardware

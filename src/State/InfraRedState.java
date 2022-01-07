@@ -44,7 +44,7 @@ public class InfraRedState extends ControlState {
         this.hardware.getBackMiddleLed().turnBlinkOn();
     }
 
-    //TODO: Temporary timer for checking if the button is pressed
+    //Timer for checking if the button is pressed
     private Timer tempTimer = new Timer(100);
 
     @Override
@@ -85,19 +85,19 @@ public class InfraRedState extends ControlState {
         } else if (value == Remote_Buttons.BUTTON_CH_UP) {
             this.hardware.getServoControl().goToSpeed(5);
             this.hardware.getBuzzer().setBuzzing(false);
-            System.out.println("Forwards");
+            System.out.println("Forward");
         } else if (value == Remote_Buttons.BUTTON_CH_DOWN) {
             this.hardware.getServoControl().goToSpeed(-3);
             this.hardware.getBuzzer().setBuzzing(true);
-            System.out.println("Backwards");
+            System.out.println("Backward");
         } else if (value == Remote_Buttons.BUTTON_VOL_UP) {
             this.hardware.getBuzzer().setBuzzing(false);
             this.hardware.getServoControl().timeTurn(2000, Direction.RIGHT);
-            System.out.println("Turning right");
+            System.out.println("Turn right");
         } else if (value == Remote_Buttons.BUTTON_VOL_DOWN) {
             this.hardware.getBuzzer().setBuzzing(false);
             this.hardware.getServoControl().timeTurn(2000, Direction.LEFT);
-            System.out.println("Turning left");
+            System.out.println("Turn left");
         } else if (value == Remote_Buttons.BUTTON_0) {
             this.hardware.getBuzzer().setBuzzing(false);
             this.hardware.getServoControl().stop();
@@ -110,30 +110,37 @@ public class InfraRedState extends ControlState {
             this.hardware.getBuzzer().setBuzzing(false);
             System.out.println("Switch to BT");
             this.callback.switchState(new BluetoothState(this.hardware, this.callback));
-        } else if (value == Remote_Buttons.BUTTON_REC) {// button to turn the ultrasone off
+        } else if (value == Remote_Buttons.BUTTON_REC) {
+            //Turn ultrasone off
             this.ultrasoneState = false;
-            System.out.println(this.ultrasoneState);
-        } else if (value == Remote_Buttons.BUTTON_STOP) {// button to turn the ultrasone on
+        } else if (value == Remote_Buttons.BUTTON_STOP) {
+            //Turn ultrasone on
             this.ultrasoneState = true;
-
         } else if (value == Remote_Buttons.BUTTON_EMPTY_BOX) {
-            this.hardware.getGripper().grippermove();
+            System.out.println("Move the gripper");
+            this.hardware.getGripper().gripperMove();
         } else if (value == Remote_Buttons.BUTTON_1) {
+            System.out.println("Go to gear 1");
             this.hardware.getServoControl().goToSpeed(1);
             this.hardware.getBuzzer().setBuzzing(false);
         } else if (value == Remote_Buttons.BUTTON_2) {
+            System.out.println("Go to gear 2");
             this.hardware.getServoControl().goToSpeed(2);
             this.hardware.getBuzzer().setBuzzing(false);
         } else if (value == Remote_Buttons.BUTTON_3) {
+            System.out.println("Go to gear 3");
             this.hardware.getServoControl().goToSpeed(3);
             this.hardware.getBuzzer().setBuzzing(false);
         } else if (value == Remote_Buttons.BUTTON_4) {
+            System.out.println("Go to gear 4");
             this.hardware.getServoControl().goToSpeed(4);
             this.hardware.getBuzzer().setBuzzing(false);
         } else if (value == Remote_Buttons.BUTTON_5) {
+            System.out.println("Go to gear 5");
             this.hardware.getServoControl().goToSpeed(5);
             this.hardware.getBuzzer().setBuzzing(false);
         } else if (value == Remote_Buttons.BUTTON_6) {
+            System.out.println("Go to gear 6");
             this.hardware.getServoControl().goToSpeed(6);
             this.hardware.getBuzzer().setBuzzing(false);
         } else {
@@ -158,7 +165,7 @@ public class InfraRedState extends ControlState {
 
     @Override
     public void onLineFollowTrigger(LineFollower source, int rightValue, int leftValue) {
-//        System.out.println("Triggered line follower");
+
     }
 
     @Override

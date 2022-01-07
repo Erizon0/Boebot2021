@@ -36,7 +36,7 @@ public class LinefollowerState extends ControlState {
         this.hardware.getBackMiddleLed().turnBlinkOn();
     }
 
-    //TODO: Temporary timer for checking if the button is pressed
+    //Timer for checking if the button is pressed
     private Timer tempTimer = new Timer(100);
 
     @Override
@@ -64,11 +64,15 @@ public class LinefollowerState extends ControlState {
     }
 
 
-    public void Linehandler(int left,int right){
-        this.hardware.getRightServo().setLinefollowmode(true);
-        this.hardware.getLeftServo().setLinefollowmode(true);
-        if(left > 1000  || right > 1000) {
-            if (left > 1000) {
+    /** Handle the linefollower signals
+     * @param leftValue The value of the left linefollower
+     * @param rightValue The value of the right linefollower
+     */
+    public void Linehandler(int leftValue, int rightValue){
+        this.hardware.getRightServo().setLinefollowMode(true);
+        this.hardware.getLeftServo().setLinefollowMode(true);
+        if(leftValue > 1000 || rightValue > 1000) {
+            if (leftValue > 1000) {
 //                this.hardware.getServoControl().turn(Direction.LEFT, 3);
                 System.out.println("turning right");
                 this.hardware.getRightServo().instantUpdate(1450);
@@ -91,8 +95,8 @@ public class LinefollowerState extends ControlState {
     public void onRemotePress(int value) {
 
         if (value != Remote_Buttons.BUTTON_ASPECT) { //191
-            this.hardware.getRightServo().setLinefollowmode(false);
-            this.hardware.getLeftServo().setLinefollowmode(false);
+            this.hardware.getRightServo().setLinefollowMode(false);
+            this.hardware.getLeftServo().setLinefollowMode(false);
             System.out.println("Detected remote in LF");
             InfraRedState infraRedState = new InfraRedState(this.hardware, this.callback);
             infraRedState.onRemotePress(value);
@@ -105,17 +109,15 @@ public class LinefollowerState extends ControlState {
 
     @Override
     public void onButtonPress() {
-        System.out.println("Pressed button");
     }
 
     @Override
     public void onBTSignal(Bluetooth source, int value) {
-        System.out.println("Received Bluetooth signal");
     }
 
     @Override
     public void onLineFollowTrigger(LineFollower source, int rightfollow, int leftfollow) {
-        System.out.println("Triggered line follower | R: " + rightfollow + " | L: "+ leftfollow);
+//        System.out.println("Triggered line follower | R: " + rightfollow + " | L: "+ leftfollow);
         Linehandler(leftfollow,rightfollow);
     }
 

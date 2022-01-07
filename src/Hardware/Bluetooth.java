@@ -28,9 +28,10 @@ public class Bluetooth implements Update {
         if (serial.available() > 0) {
             int data = serial.readByte();
             serial.writeByte(data); // Echo data
-            System.out.println("Received: " + data);
-            if(data > 13)
-            callback.onBTSignal(this, data);
+            if(data > 13) {
+                System.out.println("Received: " + data);
+                callback.onBTSignal(this, data);
+            }
         }
     }
 

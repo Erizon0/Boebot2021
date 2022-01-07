@@ -29,18 +29,11 @@ public class InfraRed implements Update {
         this.callback = callback;
     }
 
-//    public static void main(String[] args) {
-//        InfraRed ir = new InfraRed(12);
-//        int[] ints = new int[]{1,0,1,0,1,0,1,0,1,0,1};
-//        System.out.println(ir.getNumber(ints));
-//    }
-
     /** Get the number from an array of received values
      * @param numbers An int array of received numbers
      * @return The converted number
      */
     private int getNumber(int[] numbers) {
-//        System.out.println("Input: " + Arrays.toString(numbers));
         int[] shortNumbers = Arrays.copyOfRange(numbers, 0, 8);
 
         //Reverse the first 8 bits of the received int array
@@ -50,8 +43,6 @@ public class InfraRed implements Update {
             shortNumbers[i] = shortNumbers[shortNumbers.length - i - 1];
             shortNumbers[shortNumbers.length - i - 1] = tempArray;
         }
-
-//     System.out.println("Flipped:" + Arrays.toString(shortNumbers));
 
         //Put the int array into a string
         String byteNumbers = "";
@@ -67,7 +58,6 @@ public class InfraRed implements Update {
     @Override
     public void update() {
         int pulseLen = BoeBot.pulseIn(this.pin, false, 60000);
-//        System.out.println(pulseLen);
 
             if (pulseLen > 2000) {
                 int lengths[] = new int[12];
@@ -81,13 +71,6 @@ public class InfraRed implements Update {
                     }
                 }
 
-//            String code = "";
-//            for (int number : lengths) {
-//                code += number;
-//            }
-//            System.out.println("Code: " + code);
-
-//                System.out.println("Number: " + getNumber(lengths));
                 callback.onRemotePress(getNumber(lengths));
         }
 
