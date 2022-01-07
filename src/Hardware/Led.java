@@ -3,69 +3,134 @@ package Hardware;
 import Interface.Update;
 import TI.BoeBot;
 import TI.Timer;
+import Tools.LedState;
+import Tools.ToggleTimer;
 
 import java.awt.*;
 
 public class Led implements Update {
     private int pin;
     private Color color;
-    private Timer timer1;
+    private ToggleTimer blinkTimer;
+//    private final Timer blinktimer = new Timer(50);
+    private boolean blinker = false;
+    private LedState blinkState;
 
-    private int state = 0;
-
-    //TODO: Check if this works
+    /** Constructor for led with no timer
+     * @param pin What pin the LED is on
+     * @param color What color the LED should be
+     */
     public Led(int pin, Color color) {
         this.pin = pin;
         this.color = color;
+        this.blinkTimer = new ToggleTimer(1);
+        this.blinkState = LedState.OFF;
         BoeBot.rgbSet(this.pin, this.color);
     }
 
+    /** Constructor for led with timer
+     * @param pin What pin de LED is on
+     * @param color What color the LED should be
+     * @param time With which interval the LED should blink
+     */
     public Led(int pin, Color color, int time){
         this.pin = pin;
         this.color = color;
-        this.timer1 = new Timer(time);
+        this.blinkTimer = new ToggleTimer(time);
+        this.blinkState = LedState.OFF;
         BoeBot.rgbSet(this.pin, this.color);
     }
 
+    /** Set the color of the LED
+     * @param color Which color the LEd should be
+     */
     public void setColor(Color color) {
         this.color = color;
     }
 
-    public void setTime(int time) {
-        this.timer1.setInterval(time);
+    /** Set the interval with which the LED should beep
+     * @param time With which interval the LED should blink
+     */
+    public void setInterval(int time) {
+        this.blinkTimer.setInterval(time);
     }
 
+    /**
+     * Toggle the state of the LED
+     */
     public void toggle(){
-        switch (this.state){
-            case 0:
-                turnOn();
-                break;
-            case 1:
-                turnOff();
-                break;
+
+        if (this.blinkState == LedState.BLINKOFF) {
+            turnBlinkOn();
+        } else if (this.blinkState == LedState.BLINKON) {
+            turnBlinkOff();
         }
+
+//        switch (this.blinkState) {
+//            case BLINKOFF:
+//                turnBlinkOn();
+//                break;
+//            case BLINKON:
+//                turnBlinkOff();
+//                break;
+//        }
+
     }
 
-    public void turnOn(){
-        BoeBot.rgbSet(this.pin,this.color);
+    /**
+     * Make the LED turn on and blink
+     */
+    public void turnBlinkOn(){
+        this.blinkState = LedState.BLINKON;
+        blinkTimer.setActive(true);
+        if (this.blinkTimer.timeout()){
+            BoeBot.rgbSet(this.pin,Color.black);
+            BoeBot.rgbShow();
+            blinkTimer.mark();
+        } else {
+            BoeBot.rgbSet(this.pin,this.color);
+            BoeBot.rgbShow();
+            blinkTimer.mark();
+        }
+
+    }
+
+    /**
+     * Just turn the LED on
+     */
+    public void turnOn() {
+        this.blinkState = LedState.ON;
+        this.blinkTimer.setActive(false);
+        BoeBot.rgbSet(this.pin, this.color);
         BoeBot.rgbShow();
-        this.state = 1;
     }
 
-    public void turnOff(){
+    /**
+     * Make the LED turn off and blink
+     */
+    public void turnBlinkOff(){
+        this.blinkState = LedState.BLINKOFF;
         BoeBot.rgbSet(this.pin, Color.BLACK);
         BoeBot.rgbShow();
-        this.state = 0;
+    }
 
+    /**
+     * Just turn the LED off
+     */
+    public void turnOff() {
+        this.blinkState = LedState.OFF;
+        this.blinkTimer.setActive(false);
+        BoeBot.rgbSet(this.pin, Color.BLACK);
+        BoeBot.rgbShow();
     }
 
     @Override
     public void update() {
-        if(this.timer1 == null)
-            return;
-        if (this.timer1.timeout()){
+        if (this.blinkTimer.timeout() && (this.blinkState == LedState.BLINKOFF || this.blinkState == LedState.BLINKON)){
             toggle();
-            this.timer1.mark();
+            this.blinkTimer.mark();
+        } else if (this.blinkState != LedState.BLINKOFF && this.blinkState != LedState.BLINKON) {
+            //Code for when the Led is not blinking
         }
     }
 }

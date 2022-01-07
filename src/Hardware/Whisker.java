@@ -5,32 +5,41 @@ import TI.BoeBot;
 import TI.PinMode;
 import TI.Timer;
 
+//TODO: Whisker should use a callback
+
+/**
+ * A hardware whisker
+ */
 public class Whisker implements Update {
 
     private int pin;
     private boolean currentState;
-    private Timer timer = new Timer(200);
+    private Timer updateTimer = new Timer(200);
 
+    /** Construct a whisker
+     * @param pin What pin the whisker is on
+     */
     public Whisker(int pin) {
         this.pin = pin;
+        this.currentState = false;
         BoeBot.setMode(pin, PinMode.Input);
-
     }
 
-    //TODO: does whisker work now?
+    /** Check if the whisker is pressed
+     * @return The state of the whisker
+     */
     public boolean isPressed() {
-        this.currentState = !BoeBot.digitalRead(this.pin);
-        //System.out.println("pin: " + this.pin + this.currentState);
         return this.currentState;
     }
 
     @Override
     public void update() {
-        if(isPressed()&& timer.timeout()){
-            timer.mark();
-            //System.out.println("whisker on pin: " + this.pin + " is pressed");
+        if (!BoeBot.digitalRead(this.pin)) {
+            this.currentState = true;
+            this.updateTimer.mark();
+        } else if (updateTimer.timeout()){
+            this.currentState = false;
         }
-
     }
 
 }

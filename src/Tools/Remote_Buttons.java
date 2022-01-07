@@ -1,5 +1,7 @@
-package Hardware;
+package Tools;
 
+/** Holds all the infrared signals
+ */
 public class Remote_Buttons {
     public static final int BUTTON_1 = 128;
     public static final int BUTTON_2 = 129;

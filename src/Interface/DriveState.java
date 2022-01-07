@@ -1,12 +1,11 @@
 package Interface;
 
-//Interface for different kinds op states
+/**
+ * Interface for different kinds op states
+ */
 public interface DriveState {
+    /**
+     * A method to update the logic of the state
+     */
     void drive();
-    void turnLeftToggle();
-    void turnRightToggle();
-    void buzzerToggle();
-
-    int getTurnDirection();
-    void setTurnDirection(int dir);
 }
